@@ -2,7 +2,7 @@ package ru.yurima.ipaddrcounter.average;
 
 import java.util.Arrays;
 
-public class GeometryMeanProcessor extends MeanProcessor {
+public class GeometryMeanProcessor implements MeanProcessor {
     public double process(int... array) {
         if (array == null || array.length == 0) return  (double) 0;
 

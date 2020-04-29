@@ -1,5 +1,5 @@
 package ru.yurima.ipaddrcounter.average;
 
-public abstract class MeanProcessor {
-    public abstract double process(int... array);
+interface MeanProcessor {
+    double process(int... array);
 }
