@@ -11,9 +11,7 @@ public class HyperLogLog {
     private final int[] registers = new int[M];
 
     {
-        for (int i = 0; i < M-1; i++) {
-            registers[i] = 0;
-        }
+        for (int i = 0; i < M-1; i++) { registers[i] = 0; }
     }
 
     public void add(int hashcode){
@@ -23,14 +21,8 @@ public class HyperLogLog {
         registers[registerNumber] = Math.max(registers[registerNumber], mostLeftBit);
     }
 
-    public static void main(String[] args) {
-        HyperLogLog logLog = new HyperLogLog();
-        System.out.println(logLog.M);
-        System.out.println(logLog.b);
-        logLog.add(0b00001);
-        logLog.add(0b100000001);
-        logLog.add(0xF0000101);
-        System.out.println(logLog.registers[0]);
-        System.out.println(logLog.registers[15]);
+    public int getRegisterValue(int n){
+        if (n > M - 1) throw new IllegalArgumentException();
+        return registers[n];
     }
 }
