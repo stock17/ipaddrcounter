@@ -1,5 +1,6 @@
 package ru.yurima.ipaddrcounter;
 
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +17,20 @@ public class HyperLogLog {
     }
 
     public void add(int hashcode){
-        int registerNumber = hashcode >>> (16 - b);         //get b first bits
-        int body = (0xF000 | hashcode) - 0xF000;            //get rest of the bits
-        int mostLeftBit = 16 - Integer.numberOfLeadingZeros(body);
+        int registerNumber = hashcode >>> (32 - b);         //get b first bits
+        int body = (0xF0000000 | hashcode) - 0xF0000000;    //get rest of the bits
+        int mostLeftBit = 32 - Integer.numberOfLeadingZeros(body);
         registers[registerNumber] = Math.max(registers[registerNumber], mostLeftBit);
+    }
+
+    public static void main(String[] args) {
+        HyperLogLog logLog = new HyperLogLog();
+        System.out.println(logLog.M);
+        System.out.println(logLog.b);
+        logLog.add(0b00001);
+        logLog.add(0b100000001);
+        logLog.add(0xF0000101);
+        System.out.println(logLog.registers[0]);
+        System.out.println(logLog.registers[15]);
     }
 }
