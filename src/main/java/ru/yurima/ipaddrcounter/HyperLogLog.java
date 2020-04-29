@@ -1,8 +1,7 @@
 package ru.yurima.ipaddrcounter;
 
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
+import ru.yurima.ipaddrcounter.average.HarmonicMeanProcessor;
+import ru.yurima.ipaddrcounter.average.MeanProcessor;
 
 public class HyperLogLog {
 
@@ -24,5 +23,29 @@ public class HyperLogLog {
     public int getRegisterValue(int n){
         if (n > M - 1) throw new IllegalArgumentException();
         return registers[n];
+    }
+
+    /**
+     * Use formula E = a * (M*M) * Z, where:
+     * E is an estimation of the count
+     * a (alpha) is a constant
+     * M is a length of the register array
+     * Z is Harmonic Mean
+     */
+    public double count(){
+        MeanProcessor processor = new HarmonicMeanProcessor();
+        double Z = processor.process(registers);
+        double alpha = getAlpha();
+        double E = alpha * (M*M) * Z;
+        return E;
+    }
+
+    private double getAlpha(){
+        switch (M){
+            case(16): return 0.673;
+            case(32): return 0.697;
+            case(64): return 0.709;
+            default:  return 0.7213 / (1 + (1.079/M));
+        }
     }
 }

@@ -1,5 +1,5 @@
 package ru.yurima.ipaddrcounter.average;
 
-interface MeanProcessor {
+public interface MeanProcessor {
     double process(int... array);
 }
