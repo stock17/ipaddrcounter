@@ -1,9 +1,9 @@
-package ru.yurima.ipaddrcounter;
+package ru.yurima.ipaddrcounter.count;
 
 import ru.yurima.ipaddrcounter.average.HarmonicMeanProcessor;
 import ru.yurima.ipaddrcounter.average.MeanProcessor;
 
-public class HyperLogLog {
+public class HyperLogLog implements DistinctCounter {
 
     private final int M = 16;                               // Number of registers
     private final int b = (int)(Math.log(M) / Math.log(2)); // Calculate log2M register bits

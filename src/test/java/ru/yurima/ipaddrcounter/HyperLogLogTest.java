@@ -2,6 +2,7 @@ package ru.yurima.ipaddrcounter;
 
 import junit.framework.TestCase;
 import org.junit.Test;
+import ru.yurima.ipaddrcounter.count.HyperLogLog;
 
 public class HyperLogLogTest extends TestCase {
 
