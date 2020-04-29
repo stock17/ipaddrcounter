@@ -14,10 +14,15 @@ public class FileSourceStreamer {
         this.filename = filename;
     }
 
-    public Stream<String> stream() throws IOException {
+    public Stream<String> stream() {
         Path file = Paths.get(filename);
-        if (Files.exists(file))
-            return Files.lines(file);
+        if (Files.exists(file)) {
+            try {
+                return Files.lines(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
 
     }

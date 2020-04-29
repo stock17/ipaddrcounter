@@ -8,23 +8,24 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class IdAddressCounter {
+public class IpAddressCounter {
 
     private String filename;
 
-    public IdAddressCounter(String filename) {
+    public IpAddressCounter(String filename) {
         this.filename = filename;
     }
 
     public static void main(String[] args) throws IOException {
         if(args.length < 1) return;
-            String filename = args[0];
+
+        String filename = args[0];
         if (!Files.exists(Paths.get(filename))) {
             System.out.println("Incorrect filename");
             return;
         }
 
-        IdAddressCounter ipCounter = new IdAddressCounter(args[0]);
+        IpAddressCounter ipCounter = new IpAddressCounter(args[0]);
         double result = ipCounter.estimate();
         System.out.println(result);
     }
@@ -33,6 +34,7 @@ public class IdAddressCounter {
         DistinctCounter counter = new HyperLogLog();
         FileSourceStreamer streamer = new FileSourceStreamer(filename);
         streamer.stream().forEach(s-> {
+            System.out.println(s);
             counter.add(s.hashCode());
         });
         return counter.count();
