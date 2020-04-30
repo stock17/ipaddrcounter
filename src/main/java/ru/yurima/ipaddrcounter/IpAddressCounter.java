@@ -34,7 +34,6 @@ public class IpAddressCounter {
         DistinctCounter counter = new HyperLogLog();
         FileSourceStreamer streamer = new FileSourceStreamer(filename);
         streamer.stream().forEach(s-> {
-            System.out.println(s);
             counter.add(s.hashCode());
         });
         return counter.count();
