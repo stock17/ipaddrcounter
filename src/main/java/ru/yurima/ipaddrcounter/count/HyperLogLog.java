@@ -16,7 +16,7 @@ public class HyperLogLog implements DistinctCounter {
     public void add(int hashcode){
         int registerNumber = hashcode >>> (32 - b);         //get b first bits
         int body = (0xF0000000 | hashcode) - 0xF0000000;    //get rest of the bits
-        int mostLeftBit = 32 - Integer.numberOfLeadingZeros(body);
+        int mostLeftBit = Integer.numberOfLeadingZeros(body) - b + 1;
         registers[registerNumber] = Math.max(registers[registerNumber], mostLeftBit);
     }
 
