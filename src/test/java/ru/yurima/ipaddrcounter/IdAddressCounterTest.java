@@ -26,7 +26,7 @@ public class IdAddressCounterTest {
 
         IpAddressCounter ipAddressCounter = new IpAddressCounter(file.toString());
         double result = ipAddressCounter.estimate();
-        System.out.println(result);
+        System.out.println(Math.round(result));
     }
 
     @After

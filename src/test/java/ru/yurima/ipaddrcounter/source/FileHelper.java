@@ -14,7 +14,7 @@ public class FileHelper {
             Files.createFile(file);
             Random random = new Random();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(file)));
-            for (int i = 0; i < 100000; i++) {
+            for (int i = 0; i < 10000000; i++) {
                 StringJoiner joiner = new StringJoiner(".");
                 for (int j = 0; j < 4; j++) {
                     joiner.add("" + random.nextInt(256));
