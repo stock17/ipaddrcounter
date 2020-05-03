@@ -1,6 +1,6 @@
 package ru.yurima.ipaddrcounter.count;
 
 public interface DistinctCounter {
-    void add(int hashcode);
+    void add(long hashcode);
     double count();
 }

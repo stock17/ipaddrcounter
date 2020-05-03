@@ -11,6 +11,7 @@ import java.util.StringJoiner;
 public class FileHelper {
     public static boolean createFile(Path file, int size) {
         try {
+            if (Files.exists(file)) deleteFile(file);
             Files.createFile(file);
             Random random = new Random();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(file)));

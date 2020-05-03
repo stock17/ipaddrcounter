@@ -4,10 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class NaiveCounter implements DistinctCounter {
-    Set<Integer> set = new HashSet<>();
+    Set<Long> set = new HashSet<>();
 
     @Override
-    public void add(int hashcode) {
+    public void add(long hashcode) {
         set.add(hashcode);
     }
 
