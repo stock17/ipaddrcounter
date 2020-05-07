@@ -1,4 +1,4 @@
-package ru.yurima.ipaddrcounter.hash;
+package ru.yurima.ipaddrcounter.util;
 
 public interface HashCoder<T> {
     public long getHashCode64(T obj);

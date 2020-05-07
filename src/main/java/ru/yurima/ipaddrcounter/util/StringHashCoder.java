@@ -1,4 +1,6 @@
-package ru.yurima.ipaddrcounter.hash;
+package ru.yurima.ipaddrcounter.util;
+
+import java.net.Inet4Address;
 
 public class StringHashCoder implements HashCoder<String> {
     @Override
