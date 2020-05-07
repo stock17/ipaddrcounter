@@ -17,7 +17,7 @@ public class IdAddressCounterTest {
 
     @Before
     public void init() {
-        FileHelper.createFile(file, size);
+        FileHelper.createUniqueFile(file, size);
     }
 
     @Test
