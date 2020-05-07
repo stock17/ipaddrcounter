@@ -1,7 +1,6 @@
 package ru.yurima.ipaddrcounter.average;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class GeometryMeanProcessorTest {
