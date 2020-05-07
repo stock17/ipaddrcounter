@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 public class IdAddressCounterTest {
 
     private final Path file = Paths.get("./ipaddrcountertest");
-    private final int size = 100000;
+    private final int size = 10000;
     private final float accuracy = 0.05f;
 
     @Before
@@ -26,7 +26,8 @@ public class IdAddressCounterTest {
         double result = ipAddressCounter.estimate();
         System.out.printf("Expected: %s\n", size);
         System.out.printf("Result: %s", Math.round(result));
-        assert (result  > size * (1-accuracy) && result < result * (1 + accuracy));
+        assert (result  > size * (1-accuracy)
+                && result < size * (1 + accuracy));
 
     }
 
