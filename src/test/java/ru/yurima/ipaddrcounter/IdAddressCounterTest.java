@@ -12,12 +12,12 @@ import java.nio.file.Paths;
 public class IdAddressCounterTest {
 
     private final Path file = Paths.get("./ipaddrcountertest");
-    private final int size = 10000;
+    private final int size = 100000000;
     private final float accuracy = 0.05f;
 
     @Before
     public void init() {
-        FileHelper.createFile(file, size);
+        FileHelper.createUniqueFile(file, size);
     }
 
     @Test

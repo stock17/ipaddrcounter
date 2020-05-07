@@ -6,8 +6,6 @@ import ru.yurima.ipaddrcounter.source.FileSourceStreamer;
 import ru.yurima.ipaddrcounter.util.HashCoder;
 import ru.yurima.ipaddrcounter.util.IntegerHashCoder;
 import ru.yurima.ipaddrcounter.util.IpHelper;
-import ru.yurima.ipaddrcounter.util.StringHashCoder;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,23 +27,20 @@ public class IpAddressCounter {
             return;
         }
 
-        IpAddressCounter ipCounter = new IpAddressCounter(args[0]);
+        IpAddressCounter ipCounter = new IpAddressCounter(filename);
         double result = ipCounter.estimate();
         System.out.println(result);
     }
 
     public double estimate() throws IOException {
-        HashCoder<String> coder = new StringHashCoder();
-        HashCoder<Integer> integerHashCoder = new IntegerHashCoder();
+        HashCoder<Integer> intCoder = new IntegerHashCoder();
         DistinctCounter counter = new HyperLogLog();
         FileSourceStreamer streamer = new FileSourceStreamer(filename);
         streamer.stream().forEach(s-> {
             counter.add(
-                    integerHashCoder.getHashCode32(
+                    intCoder.hash(
                             IpHelper.toInteger(s)
                     )
-//                    coder.getHashCode32(s)
-//                    s.hashCode()
             );
         });
         return counter.count();
