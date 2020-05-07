@@ -19,7 +19,10 @@ public class IpAddressCounter {
     }
 
     public static void main(String[] args) throws IOException {
-        if(args.length < 1) return;
+        if (args.length < 1) {
+            System.out.println("No file");
+            return;
+        }
 
         String filename = args[0];
         if (!Files.exists(Paths.get(filename))) {
@@ -29,7 +32,8 @@ public class IpAddressCounter {
 
         IpAddressCounter ipCounter = new IpAddressCounter(filename);
         double result = ipCounter.estimate();
-        System.out.println(result);
+        System.out.printf("There are about %d distinct records in this file",
+                Math.round(result));
     }
 
     public double estimate() throws IOException {
