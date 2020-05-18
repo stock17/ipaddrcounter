@@ -10,6 +10,7 @@ import ru.yurima.ipaddrcounter.util.IpHelper;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class IpAddressCounter {
 
@@ -33,7 +34,29 @@ public class IpAddressCounter {
             return;
         }
 
-        IpAddressCounter ipCounter = new IpAddressCounter(filename, new BitSetDistinctCounter());
+        DistinctCounter counter;
+
+        System.out.println("Choose algorithm: \n" +
+                "1. HyperLogLog: min RAM, accuracy +-2%\n" +
+                "2. BitSet: more RAM, exact number\n");
+
+        Scanner sc = new Scanner(System.in);
+        try {
+            int i = sc.nextInt();
+            switch (i) {
+                case 1 : counter = new HyperLogLog();
+                break;
+                case 2: counter = new BitSetDistinctCounter();
+                break;
+                default:
+                    throw new IllegalArgumentException();
+            }
+        } catch (Exception e){
+            System.out.println("Wrong parameters");
+            return;
+        }
+
+        IpAddressCounter ipCounter = new IpAddressCounter(filename,counter);
         double result = ipCounter.estimate();
         System.out.printf("There are %d distinct records in this file",
                 Math.round(result));
