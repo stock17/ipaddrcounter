@@ -8,11 +8,11 @@ public class BitSetDistinctCounter implements DistinctCounter{
     private BitSet neg = new BitSet();
 
     @Override
-    public void add(int hashcode) {
-        if (hashcode < 0) {
-            neg.set(~hashcode);
+    public void add(int value) {
+        if (value < 0) {
+            neg.set(~value);
         } else {
-            pos.set(hashcode);
+            pos.set(value);
         }
 
     }

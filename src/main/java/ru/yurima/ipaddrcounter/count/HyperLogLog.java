@@ -13,14 +13,14 @@ public class HyperLogLog implements DistinctCounter {
         for (int i = 0; i < M-1; i++) { registers[i] = 0; }
     }
 
-    public void add(int hashcode){
+    public void add(int value){
 //        int mask = Integer.MIN_VALUE >> (Integer.SIZE - b) - 1;   // set first b bits to 0, others to 1
 //        int registerNumber = hashcode & ~mask;                    //get b first bits
 //        int body = hashcode >> b;                                 //get rest of the bits
 
-        int registerNumber = hashcode >>> (Integer.SIZE - b);   //get b first bits
+        int registerNumber = value >>> (Integer.SIZE - b);   //get b first bits
         int mask = Integer.MIN_VALUE >> (b - 1);                // set first b bits to 0, others to 1
-        int body = hashcode & ~mask;                            //get rest of the bits
+        int body = value & ~mask;                            //get rest of the bits
 
         int mostLeftBit = Integer.numberOfLeadingZeros(body) - b + 1;
         registers[registerNumber] = Math.max(registers[registerNumber], mostLeftBit);

@@ -7,8 +7,8 @@ public class NaiveCounter implements DistinctCounter {
     Set<Integer> set = new HashSet<>();
 
     @Override
-    public void add(int hashcode) {
-        set.add(hashcode);
+    public void add(int value) {
+        set.add(value);
     }
 
     @Override
