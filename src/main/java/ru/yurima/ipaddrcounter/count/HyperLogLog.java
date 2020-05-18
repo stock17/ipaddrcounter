@@ -2,8 +2,13 @@ package ru.yurima.ipaddrcounter.count;
 
 import ru.yurima.ipaddrcounter.average.HarmonicMeanProcessor;
 import ru.yurima.ipaddrcounter.average.MeanProcessor;
+import ru.yurima.ipaddrcounter.util.HashCoder;
+import ru.yurima.ipaddrcounter.util.IntegerHashCoder;
+import ru.yurima.ipaddrcounter.util.IpHelper;
 
 public class HyperLogLog implements DistinctCounter {
+
+    HashCoder<Integer> intCoder = new IntegerHashCoder();
 
     private final int M = 2048;                               // Number of registers
     private final int b = (int)(Math.log(M) / Math.log(2)); // Calculate log2M register bits
@@ -14,13 +19,12 @@ public class HyperLogLog implements DistinctCounter {
     }
 
     public void add(int value){
-//        int mask = Integer.MIN_VALUE >> (Integer.SIZE - b) - 1;   // set first b bits to 0, others to 1
-//        int registerNumber = hashcode & ~mask;                    //get b first bits
-//        int body = hashcode >> b;                                 //get rest of the bits
 
-        int registerNumber = value >>> (Integer.SIZE - b);   //get b first bits
+        int hashcode = intCoder.hash(value);
+
+        int registerNumber = hashcode >>> (Integer.SIZE - b);   //get b first bits
         int mask = Integer.MIN_VALUE >> (b - 1);                // set first b bits to 0, others to 1
-        int body = value & ~mask;                            //get rest of the bits
+        int body = hashcode & ~mask;                            //get rest of the bits
 
         int mostLeftBit = Integer.numberOfLeadingZeros(body) - b + 1;
         registers[registerNumber] = Math.max(registers[registerNumber], mostLeftBit);

@@ -39,13 +39,11 @@ public class IpAddressCounter {
     }
 
     public double estimate() throws IOException {
-        HashCoder<Integer> intCoder = new IntegerHashCoder();
+
         FileSourceStreamer streamer = new FileSourceStreamer(filename);
         streamer.stream().forEach(s-> {
             counter.add(
-                    intCoder.hash(
                             IpHelper.toInteger(s)
-                    )
             );
         });
         return counter.count();
