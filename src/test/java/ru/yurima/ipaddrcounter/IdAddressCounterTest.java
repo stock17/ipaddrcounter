@@ -19,12 +19,12 @@ public class IdAddressCounterTest {
 
     @Before
     public void init() {
-        FileHelper.createFile(file, size);
+        FileHelper.createUniqueFile(file, size);
     }
 
     @Test
     public void estimate() throws IOException {
-        IpAddressCounter ipAddressCounter = new IpAddressCounter(file.toString(), new HyperLogLog());
+        IpAddressCounter ipAddressCounter = new IpAddressCounter(file.toString(), new BitSetDistinctCounter());
         double result = ipAddressCounter.estimate();
         System.out.printf("Expected: %s\n", size);
         System.out.printf("Result: %s", Math.round(result));

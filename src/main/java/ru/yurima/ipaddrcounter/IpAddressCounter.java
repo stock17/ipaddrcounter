@@ -1,5 +1,6 @@
 package ru.yurima.ipaddrcounter;
 
+import ru.yurima.ipaddrcounter.count.BitSetDistinctCounter;
 import ru.yurima.ipaddrcounter.count.DistinctCounter;
 import ru.yurima.ipaddrcounter.count.HyperLogLog;
 import ru.yurima.ipaddrcounter.source.FileSourceStreamer;
@@ -32,9 +33,9 @@ public class IpAddressCounter {
             return;
         }
 
-        IpAddressCounter ipCounter = new IpAddressCounter(filename, new HyperLogLog());
+        IpAddressCounter ipCounter = new IpAddressCounter(filename, new BitSetDistinctCounter());
         double result = ipCounter.estimate();
-        System.out.printf("There are about %d distinct records in this file",
+        System.out.printf("There are %d distinct records in this file",
                 Math.round(result));
     }
 

@@ -14,7 +14,6 @@ public class BitSetDistinctCounter implements DistinctCounter{
         } else {
             pos.set(value);
         }
-
     }
 
     @Override
