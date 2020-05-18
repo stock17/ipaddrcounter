@@ -3,6 +3,7 @@ package ru.yurima.ipaddrcounter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.yurima.ipaddrcounter.count.BitSetDistinctCounter;
 import ru.yurima.ipaddrcounter.count.HyperLogLog;
 import ru.yurima.ipaddrcounter.source.FileHelper;
 
