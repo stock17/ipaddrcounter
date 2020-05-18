@@ -3,6 +3,7 @@ package ru.yurima.ipaddrcounter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.yurima.ipaddrcounter.count.HyperLogLog;
 import ru.yurima.ipaddrcounter.source.FileHelper;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class IdAddressCounterTest {
 
     @Test
     public void estimate() throws IOException {
-        IpAddressCounter ipAddressCounter = new IpAddressCounter(file.toString());
+        IpAddressCounter ipAddressCounter = new IpAddressCounter(file.toString(), new HyperLogLog());
         double result = ipAddressCounter.estimate();
         System.out.printf("Expected: %s\n", size);
         System.out.printf("Result: %s", Math.round(result));

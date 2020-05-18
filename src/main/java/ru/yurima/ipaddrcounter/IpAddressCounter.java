@@ -13,9 +13,11 @@ import java.nio.file.Paths;
 public class IpAddressCounter {
 
     private String filename;
+    private DistinctCounter counter;
 
-    public IpAddressCounter(String filename) {
+    public IpAddressCounter(String filename, DistinctCounter counter) {
         this.filename = filename;
+        this.counter = counter;
     }
 
     public static void main(String[] args) throws IOException {
@@ -30,7 +32,7 @@ public class IpAddressCounter {
             return;
         }
 
-        IpAddressCounter ipCounter = new IpAddressCounter(filename);
+        IpAddressCounter ipCounter = new IpAddressCounter(filename, new HyperLogLog());
         double result = ipCounter.estimate();
         System.out.printf("There are about %d distinct records in this file",
                 Math.round(result));
@@ -38,7 +40,6 @@ public class IpAddressCounter {
 
     public double estimate() throws IOException {
         HashCoder<Integer> intCoder = new IntegerHashCoder();
-        DistinctCounter counter = new HyperLogLog();
         FileSourceStreamer streamer = new FileSourceStreamer(filename);
         streamer.stream().forEach(s-> {
             counter.add(
