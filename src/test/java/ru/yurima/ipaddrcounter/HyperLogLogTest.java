@@ -3,6 +3,7 @@ package ru.yurima.ipaddrcounter;
 
 import org.junit.Test;
 import ru.yurima.ipaddrcounter.count.HyperLogLog;
+import ru.yurima.ipaddrcounter.util.IntegerHashCoder;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,14 +13,14 @@ public class HyperLogLogTest {
     public void testAdd() {
         HyperLogLog logLog = new HyperLogLog();
 
-        logLog.add(0b100000000);
-        assertEquals(13, logLog.getRegisterValue(0));
+        int value = 0b10000000;
+        logLog.add(value);
+        int h = new IntegerHashCoder().hash(value);
+        int registerNumber = h >>> (Integer.SIZE - 11);
+        int mask = Integer.MIN_VALUE >> (11 - 1);
+        int body = h & ~mask;
+        int mostLeftBit = Integer.numberOfLeadingZeros(body) - 11 + 1;
 
-        logLog.add(1);
-        assertEquals(21, logLog.getRegisterValue(0));
-
-
-        logLog.add(0xFFE01111);
-        assertEquals(9, logLog.getRegisterValue(2047));
+        assertEquals(mostLeftBit, logLog.getRegisterValue(registerNumber));
     }
 }
