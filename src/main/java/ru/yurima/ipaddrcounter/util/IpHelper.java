@@ -1,22 +1,16 @@
 package ru.yurima.ipaddrcounter.util;
 
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
+public final class IpHelper {
 
-public class IpHelper {
+    private IpHelper(){}
+
     public static int toInteger(String s) {
-        int[] array = new int[4];
-        String[] parts = s.split("\\.");
-        for (int i = 0; i < 4; i++) {
-            array[i] = Integer.parseInt(parts[i]);
-        }
-
+        final String[] parts = s.split("\\.");
         int ip = 0;
         for (int i = 0; i < 4; i++) {
             ip <<= Byte.SIZE;
-            ip += array[i];
+            ip += Integer.parseInt(parts[i]);
         }
-
         return ip;
     }
 }
