@@ -40,8 +40,7 @@ public class IpAddressCounter {
                 "1. HyperLogLog:  accuracy +-2%\n" +
                 "2. BitSet:       exact number\n");
 
-        Scanner sc = new Scanner(System.in);
-        try {
+        try (Scanner sc = new Scanner(System.in)) {
             int i = sc.nextInt();
             switch (i) {
                 case 1 : counter = new HyperLogLog();
