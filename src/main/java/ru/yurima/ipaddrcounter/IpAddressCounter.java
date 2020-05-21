@@ -37,8 +37,8 @@ public class IpAddressCounter {
         DistinctCounter counter;
 
         System.out.println("Choose algorithm: \n" +
-                "1. HyperLogLog: min RAM, accuracy +-2%\n" +
-                "2. BitSet: more RAM, exact number\n");
+                "1. HyperLogLog:  accuracy +-2%\n" +
+                "2. BitSet:       exact number\n");
 
         Scanner sc = new Scanner(System.in);
         try {
