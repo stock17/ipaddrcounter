@@ -3,14 +3,13 @@ package ru.yurima.ipaddrcounter.util;
 public class IntegerHashCoder implements HashCoder<Integer>{
 
     @Override
-    public int hash(Integer obj) {
-        int key = obj.intValue();
-        key = ~key + (key << 15); // key = (key << 15) - key - 1;
-        key = key ^ (key >>> 12);
-        key = key + (key << 2);
-        key = key ^ (key >>> 4);
-        key = key * 2057; // key = (key + (key << 3)) + (key << 11);
-        key = key ^ (key >>> 16);
-        return key;
+    public int hash(final Integer obj) {
+        int h = obj;
+        h ^= h >>> 16;
+        h *= 0x85ebca6b;
+        h ^= h >>> 13;
+        h *= 0xc2b2ae35;
+        h ^= h >>> 16;
+        return h;
     }
 }
